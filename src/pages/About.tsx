@@ -73,7 +73,7 @@ export const About = () => {
               <FadeInWhenVisible>
                 <div className="w-full max-w-md aspect-square bg-[#161b22] border border-border-default rounded-xl overflow-hidden relative mx-auto lg:mx-0">
                   <img
-                    src="/team/nabil.jpg"
+                    src="/branding/nabil-founder.png"
                     alt="Nabil Rehman, Founder"
                     className="w-full h-full object-cover"
                     onError={(e) => {
