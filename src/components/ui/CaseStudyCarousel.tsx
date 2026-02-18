@@ -7,26 +7,26 @@ import { Button } from './Button';
 const FEATURED_STUDIES = [
   {
     id: 1,
-    title: "Healthcare Leader: Automated MLOps Platform",
-    description: "Built a scalable, automated MLOps pipeline on Google Cloud, reducing model deployment time from weeks to days for a Fortune 500 healthcare provider.",
+    title: "Automated MLOps Platform for Healthcare",
+    description: "A scalable, automated MLOps pipeline on Google Cloud that reduces model deployment time from weeks to days for healthcare providers processing millions of claims.",
     imageSrc: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200",
     tags: ["AI", "MLOps", "Google Cloud"],
     stats: "50% Faster Time-to-Market",
-    client: "Healthcare Leader",
+    category: "Healthcare",
     results: [
-      "Reduced deployment time by 50%",
+      "50% reduced deployment time",
       "Automated compliance checks",
       "99.9% Pipeline Uptime"
     ]
   },
   {
     id: 2,
-    title: "Scale-Up FinTech: 10TB Migration to BigQuery",
-    description: "Migrated 10TB of legacy on-prem data to BigQuery, enabling real-time dashboards in Looker and reducing query costs by 40%.",
+    title: "10TB Legacy Data Migration to BigQuery",
+    description: "End-to-end migration of legacy on-prem data to BigQuery, enabling real-time dashboards in Looker and reducing query costs by 40%.",
     imageSrc: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=1200",
     tags: ["Data Analytics", "BigQuery"],
     stats: "40% Cost Reduction",
-    client: "FinTech Scaleup",
+    category: "Financial Services",
     results: [
       "10TB+ Data Migrated",
       "Real-time (<1s) Dashboards",
@@ -35,12 +35,12 @@ const FEATURED_STUDIES = [
   },
   {
     id: 3,
-    title: "E-commerce Giant: GenAI Customer Support",
-    description: "Deployed customized LLMs on Vertex AI to assist agents, reducing average handle time by 30% and improving CSAT scores.",
+    title: "GenAI Customer Support Agent",
+    description: "Custom LLMs deployed on Vertex AI to assist support agents, reducing average handle time by 30% and improving CSAT scores across the board.",
     imageSrc: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200",
     tags: ["Gen AI", "Vertex AI"],
     stats: "30% Handle Time Reduction",
-    client: "E-commerce Giant",
+    category: "E-commerce",
     results: [
       "30% Reduced Handle Time",
       "Custom LLM Fine-tuning",
@@ -122,23 +122,24 @@ export const CaseStudyCarousel = () => {
                       <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent z-10 transition-opacity duration-500 group-hover:opacity-40"></div>
                       <img src={study.imageSrc} alt={study.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                       <div className="absolute bottom-6 left-6 z-20">
-                        <Badge variant="status-purple">{study.client}</Badge>
+                        <Badge variant="status-purple">{study.category}</Badge>
                       </div>
                     </div>
 
                     <div className="w-full md:w-1/2 p-8 md:p-12 relative flex flex-col justify-center bg-[#0d1117]">
-                      {/* Subtle Glow in Content Area */}
                       <div className="absolute top-0 right-0 w-80 h-80 bg-accent-blue/10 blur-[90px] rounded-full pointer-events-none mix-blend-screen"></div>
                       <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-purple/5 blur-[80px] rounded-full pointer-events-none mix-blend-screen"></div>
 
                       <div className="relative z-10">
-                        <div className="flex flex-wrap gap-2 mb-8">
+                        <div className="flex flex-wrap gap-2 mb-4">
                           {study.tags.map(tag => (
                             <span key={tag} className="text-xs font-mono font-bold text-accent-blue tracking-wide uppercase bg-accent-blue/10 px-3 py-1.5 rounded-full border border-accent-blue/20">
                               {tag}
                             </span>
                           ))}
                         </div>
+
+                        <div className="text-xs font-mono text-accent-purple mb-4 uppercase tracking-wider">Solution Blueprint</div>
 
                         <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
                           {study.title}
@@ -157,8 +158,8 @@ export const CaseStudyCarousel = () => {
                           ))}
                         </div>
 
-                        <Button variant="primary" className="w-fit rounded-full px-8" href={`/work/${study.id}`}>
-                          Read success story <ArrowRight className="ml-2 w-4 h-4" />
+                        <Button variant="primary" className="w-fit rounded-full px-8" href={`/work/blueprint-${study.id}`}>
+                          View blueprint <ArrowRight className="ml-2 w-4 h-4" />
                         </Button>
                       </div>
                     </div>

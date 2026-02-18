@@ -6,29 +6,21 @@ import { Button } from '../ui/Button';
 
 const SERVICES_LINKS = [
   {
-    title: 'Cloud Architecture',
+    title: 'AI Agents',
     links: [
-      { name: 'Cloud Migration', href: '/services/cloud-migration' },
-      { name: 'Infrastructure Optimization', href: '/services/infrastructure' },
-      { name: 'FinOps', href: '/services/finops' },
+      { name: 'AI Agent Development', href: '/services/ai-agent-development' },
     ]
   },
   {
-    title: 'Data + Analytics',
+    title: 'Data',
     links: [
-      { name: 'Enterprise Data Warehouse', href: '/services/data-warehouse' },
-      { name: 'Analytics Engineering', href: '/services/analytics-engineering' },
-      { name: 'Enterprise Analytics (Looker)', href: '/services/looker' },
-      { name: 'Data Mesh', href: '/services/data-mesh' },
+      { name: 'AI-Ready Data Foundations', href: '/services/data-foundations' },
     ]
   },
   {
-    title: 'AI + Machine Learning',
+    title: 'Operations',
     links: [
-      { name: 'Generative AI', href: '/services/generative-ai' },
-      { name: 'MLOps + LLMOps', href: '/services/mlops' },
-      { name: 'Computer Vision', href: '/services/computer-vision' },
-      { name: 'Responsible AI', href: '/services/responsible-ai' },
+      { name: 'Agent Ops & Maintenance', href: '/services/agent-ops' },
     ]
   }
 ];
@@ -125,7 +117,7 @@ export const Navbar = () => {
                         <span className="bg-accent-purple/20 p-1.5 rounded-md mr-3 text-accent-purple group-hover:scale-110 transition-transform">
                           <Sparkles size={16} />
                         </span>
-                        New: Generative AI Services
+                        New: AI Agent Development
                       </div>
                       <span className="text-accent-blue font-medium text-sm group-hover:translate-x-1 transition-transform">&rarr;</span>
                     </div>
@@ -135,9 +127,7 @@ export const Navbar = () => {
             </AnimatePresence>
           </div>
 
-          <Link to="/industries" className={`px-4 py-2 text-sm font-medium transition-colors duration-200 border-b-2 ${location.pathname.includes('/industries') ? 'text-text-primary border-[#f78166]' : 'text-text-secondary border-transparent hover:text-text-primary'}`}>Industries</Link>
           <Link to="/work" className={`px-4 py-2 text-sm font-medium transition-colors duration-200 border-b-2 ${location.pathname.includes('/work') ? 'text-text-primary border-[#f78166]' : 'text-text-secondary border-transparent hover:text-text-primary'}`}>Our Work</Link>
-          <Link to="/partners" className={`px-4 py-2 text-sm font-medium transition-colors duration-200 border-b-2 ${location.pathname.includes('/partners') ? 'text-text-primary border-[#f78166]' : 'text-text-secondary border-transparent hover:text-text-primary'}`}>Partners</Link>
           <Link to="/about" className={`px-4 py-2 text-sm font-medium transition-colors duration-200 border-b-2 ${location.pathname.includes('/about') ? 'text-text-primary border-[#f78166]' : 'text-text-secondary border-transparent hover:text-text-primary'}`}>About</Link>
         </nav>
 
@@ -171,9 +161,7 @@ export const Navbar = () => {
             <div className="px-4 py-6 space-y-6">
               <div className="flex flex-col space-y-4 text-lg font-semibold">
                 <Link to="/services" className="text-text-primary pb-2 border-b border-border-muted flex justify-between">Services <ChevronDown size={20} /></Link>
-                <Link to="/industries" className="text-text-primary pb-2 border-b border-border-muted">Industries</Link>
                 <Link to="/work" className="text-text-primary pb-2 border-b border-border-muted">Our Work</Link>
-                <Link to="/partners" className="text-text-primary pb-2 border-b border-border-muted">Partners</Link>
                 <Link to="/about" className="text-text-primary pb-2 border-b border-border-muted">About</Link>
               </div>
               <Button variant="primary" className="w-full" href="/contact">Let's Talk</Button>

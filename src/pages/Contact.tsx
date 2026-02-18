@@ -135,9 +135,7 @@ export const Contact = () => {
               <div>
                 <h4 className="font-bold text-text-primary mb-2">Direct Contact</h4>
                 <p className="text-text-secondary leading-relaxed font-mono">
-                  hello@faan.cloud<br />
-                  +1 (206) 555-0199<br />
-                  support@faan.cloud
+                  hello@faan.ai
                 </p>
               </div>
             </div>
