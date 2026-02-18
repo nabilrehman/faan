@@ -102,7 +102,7 @@ export const About = () => {
                 <p className="text-lg text-text-secondary leading-relaxed mb-8">
                   He founded FAAN to take that deep insider knowledge and apply it directly: building production AI agents for companies that want to move fast without the overhead of large consultancies.
                 </p>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-3 gap-4">
                   <div className="bg-[#161b22] border border-border-default rounded-xl p-6 text-center">
                     <div className="text-3xl md:text-4xl font-bold font-mono text-accent-green mb-1">300+</div>
                     <div className="text-sm text-text-muted font-medium">Enterprise Customers</div>
@@ -110,6 +110,10 @@ export const About = () => {
                   <div className="bg-[#161b22] border border-border-default rounded-xl p-6 text-center">
                     <div className="text-3xl md:text-4xl font-bold font-mono text-accent-blue mb-1">10+ yrs</div>
                     <div className="text-sm text-text-muted font-medium">Google Cloud Experience</div>
+                  </div>
+                  <div className="bg-[#161b22] border border-border-default rounded-xl p-6 text-center">
+                    <div className="text-3xl md:text-4xl font-bold font-mono text-accent-green mb-1">6</div>
+                    <div className="text-sm text-text-muted font-medium">Google Cloud Certifications</div>
                   </div>
                 </div>
               </FadeInWhenVisible>
