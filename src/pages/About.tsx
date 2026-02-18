@@ -125,37 +125,33 @@ export const About = () => {
       {/* Certifications */}
       <section className="bg-bg-primary py-24 border-t border-border-default">
         <div className="max-w-[1280px] mx-auto px-6 text-center">
-          <FadeInWhenVisible>
-            <h2 className="text-3xl font-bold text-text-primary mb-4">
-              <span className="text-accent-green">Certified</span> Google Cloud Expertise
-            </h2>
-            <p className="text-lg text-text-muted mb-12 max-w-2xl mx-auto">Backed by industry-recognized Google Cloud certifications.</p>
-          </FadeInWhenVisible>
-          <FadeInWhenVisible delay={0.2}>
-            <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-              {[
-                'Cloud Digital Leader',
-                'Cloud Architect',
-                'Data Engineer',
-                'ML Engineer',
-                'Cloud Developer',
-                'Cloud Network Engineer',
-              ].map((cert, i) => (
-                <div key={i} className="flex flex-col items-center">
-                  <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-[#1c2333] border-2 border-border-default flex flex-col items-center justify-center hover:border-accent-green transition-colors duration-300">
-                    <svg className="w-8 h-8 mb-1" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 2L4 6v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V6l-8-4z" fill="#34A853" opacity="0.2"/>
-                      <path d="M12 2L4 6v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V6l-8-4z" stroke="#34A853" strokeWidth="1.5" fill="none"/>
-                      <path d="M9 12l2 2 4-4" stroke="#34A853" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    <span className="text-[10px] text-text-muted font-medium uppercase tracking-wider">Certified</span>
-                  </div>
-                  <span className="mt-3 text-sm font-semibold text-text-primary max-w-[100px] leading-tight">{cert}</span>
-                  <span className="text-xs text-text-muted">Google Cloud</span>
+          <h2 className="text-3xl font-bold text-text-primary mb-4">
+            <span className="text-accent-green">Certified</span> Google Cloud Expertise
+          </h2>
+          <p className="text-lg text-text-muted mb-12 max-w-2xl mx-auto">Backed by industry-recognized Google Cloud certifications.</p>
+          <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+            {[
+              'Cloud Digital Leader',
+              'Cloud Architect',
+              'Data Engineer',
+              'ML Engineer',
+              'Cloud Developer',
+              'Cloud Network Engineer',
+            ].map((cert, i) => (
+              <div key={i} className="flex flex-col items-center">
+                <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-[#1c2333] border-2 border-border-default flex flex-col items-center justify-center hover:border-accent-green transition-colors duration-300">
+                  <svg className="w-8 h-8 mb-1" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L4 6v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V6l-8-4z" fill="#34A853" opacity="0.2"/>
+                    <path d="M12 2L4 6v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V6l-8-4z" stroke="#34A853" strokeWidth="1.5" fill="none"/>
+                    <path d="M9 12l2 2 4-4" stroke="#34A853" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span className="text-[10px] text-text-muted font-medium uppercase tracking-wider">Certified</span>
                 </div>
-              ))}
-            </div>
-          </FadeInWhenVisible>
+                <span className="mt-3 text-sm font-semibold text-text-primary max-w-[100px] leading-tight">{cert}</span>
+                <span className="text-xs text-text-muted">Google Cloud</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
