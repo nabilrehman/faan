@@ -62,31 +62,56 @@ export const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
 
-    // Simulate API Call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // Submit via Formsubmit.co (no signup needed, sends to email directly)
+      const response = await fetch('https://formsubmit.co/ajax/nabilrehman8@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: `FAAN.ai Inquiry: ${formData.inquiryType}`,
+          Name: `${formData.firstName} ${formData.lastName}`,
+          Email: formData.email,
+          Company: formData.company,
+          'Inquiry Type': formData.inquiryType,
+          Message: formData.message,
+          _captcha: 'false',
+        }),
+      });
+
+      if (response.ok) {
+        addToast({
+          type: 'success',
+          title: 'Message Sent Successfully',
+          message: "We've received your inquiry. We'll be in touch within 24 hours.",
+          duration: 5000
+        });
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          company: '',
+          inquiryType: 'general',
+          message: ''
+        });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch {
       addToast({
-        type: 'success',
-        title: 'Message Sent Successfully',
-        message: "We've received your inquiry. An architect will be in touch within 24 hours.",
+        type: 'error',
+        title: 'Submission Failed',
+        message: 'Something went wrong. Please email us at hello@faan.ai instead.',
         duration: 5000
       });
-      // Reset form
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        company: '',
-        inquiryType: 'general',
-        message: ''
-      });
-    }, 1500);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
