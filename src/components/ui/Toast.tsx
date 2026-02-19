@@ -24,7 +24,7 @@ export const Toast = ({ id, type, title, message, onClose, duration = 5000 }: To
   const variants = {
     success: { border: 'border-l-accent-green', icon: <CheckCircle2 size={20} className="text-accent-green" /> },
     error: { border: 'border-l-[#f85149]', icon: <AlertCircle size={20} className="text-[#f85149]" /> },
-    info: { border: 'border-l-accent-blue', icon: <Info size={20} className="text-accent-blue" /> },
+    info: { border: 'border-l-accent-green', icon: <Info size={20} className="text-accent-green" /> },
   };
 
   const { border, icon } = variants[type];

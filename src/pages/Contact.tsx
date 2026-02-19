@@ -1,20 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView, useAnimation } from 'framer-motion';
-import { Badge } from '../components/ui/Badge';
-import { Button } from '../components/ui/Button';
-import { Input } from '../components/ui/Input';
-import { Textarea } from '../components/ui/Textarea';
 import { useToast } from '../components/ui/ToastProvider';
+import { Phone, Mail } from 'lucide-react';
 
-const FadeInWhenVisible = ({ children, delay = 0 }: { children: React.ReactNode, delay?: number }) => {
+const FadeInWhenVisible = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const controls = useAnimation();
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px 0px" });
+  const inView = useInView(ref, { once: true, margin: '-80px 0px' });
 
   useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
+    if (inView) controls.start('visible');
   }, [controls, inView]);
 
   return (
@@ -22,11 +17,8 @@ const FadeInWhenVisible = ({ children, delay = 0 }: { children: React.ReactNode,
       ref={ref}
       animate={controls}
       initial="hidden"
-      transition={{ duration: 0.6, delay, ease: "easeOut" }}
-      variants={{
-        visible: { opacity: 1, y: 0 },
-        hidden: { opacity: 0, y: 40 }
-      }}
+      transition={{ duration: 0.6, delay, ease: 'easeOut' }}
+      variants={{ visible: { opacity: 1, y: 0 }, hidden: { opacity: 0, y: 40 } }}
     >
       {children}
     </motion.div>
@@ -41,23 +33,20 @@ export const Contact = () => {
     lastName: '',
     email: '',
     company: '',
-    inquiryType: 'general',
-    message: ''
+    message: '',
   });
-
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    if (!formData.firstName) newErrors.firstName = "First name is required";
-    if (!formData.lastName) newErrors.lastName = "Last name is required";
+    if (!formData.firstName) newErrors.firstName = 'First name is required';
+    if (!formData.lastName) newErrors.lastName = 'Last name is required';
     if (!formData.email) {
-      newErrors.email = "Email is required";
+      newErrors.email = 'Email is required';
     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newErrors.email = "Format must be a valid email address";
+      newErrors.email = 'Please enter a valid email address';
     }
-    if (!formData.message) newErrors.message = "Message is required";
-
+    if (!formData.message) newErrors.message = 'Tell us about your business';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -67,18 +56,15 @@ export const Contact = () => {
     if (!validate()) return;
 
     setIsSubmitting(true);
-
     try {
-      // Submit via Formsubmit.co (no signup needed, sends to email directly)
       const response = await fetch('https://formsubmit.co/ajax/nabilrehman8@gmail.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          _subject: `FAAN.ai Inquiry: ${formData.inquiryType}`,
+          _subject: `FAAN.ai: New OpenClaw inquiry from ${formData.firstName}`,
           Name: `${formData.firstName} ${formData.lastName}`,
           Email: formData.email,
           Company: formData.company,
-          'Inquiry Type': formData.inquiryType,
           Message: formData.message,
           _captcha: 'false',
         }),
@@ -87,205 +73,177 @@ export const Contact = () => {
       if (response.ok) {
         addToast({
           type: 'success',
-          title: 'Message Sent Successfully',
-          message: "We've received your inquiry. We'll be in touch within 24 hours.",
-          duration: 5000
+          title: 'Message Sent!',
+          message: "We'll be in touch within 24 hours to schedule your call.",
+          duration: 5000,
         });
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          company: '',
-          inquiryType: 'general',
-          message: ''
-        });
+        setFormData({ firstName: '', lastName: '', email: '', company: '', message: '' });
       } else {
-        throw new Error('Form submission failed');
+        throw new Error('Submission failed');
       }
     } catch {
       addToast({
         type: 'error',
-        title: 'Submission Failed',
-        message: 'Something went wrong. Please email us at hello@faan.ai instead.',
-        duration: 5000
+        title: 'Something went wrong',
+        message: 'Please email us at hello@faan.ai instead.',
+        duration: 5000,
       });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error when typing
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[name];
-        return newErrors;
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[name];
+        return next;
       });
     }
   };
 
   return (
     <div className="flex flex-col min-h-screen bg-bg-primary">
-
-      {/* 1. Hero */}
-      <section className="relative pt-32 pb-16 px-4 overflow-hidden border-b border-border-default hero-gradient">
-        <div className="max-w-[1280px] w-full mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-          {/* Left: Text */}
+      <section className="relative pt-28 pb-20 px-4 bg-bg-primary">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          {/* Left: Info */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="status-green" className="mb-6 tracking-widest px-4 py-1 inline-flex">GET IN TOUCH</Badge>
-            <h1 className="text-5xl md:text-7xl font-bold text-text-primary mb-6 tracking-tight leading-[1.1]">
-              Let's engineer <br /> your next phase.
+            <span className="inline-block px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-full mb-6">
+              FREE 15-MIN CALL
+            </span>
+            <h1 className="text-4xl md:text-5xl font-black text-text-primary mb-6 leading-tight">
+              Let's get your AI
+              <br />
+              <span className="text-accent-green">up and running.</span>
             </h1>
-            <p className="text-xl text-text-muted leading-relaxed max-w-xl mb-12">
-              Whether you need strategic architectural guidance on GCP, a scalable data foundation, or a production-ready Generative AI system, our experts are ready to engage.
+            <p className="text-lg text-text-secondary mb-10 leading-relaxed max-w-md">
+              Book a call and we'll map out exactly what OpenClaw can automate for your business. No sales pitch, just solutions.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
-              <div>
-                <h4 className="font-bold text-text-primary mb-2">Global Headquarters</h4>
-                <p className="text-text-secondary leading-relaxed font-mono">
-                  1201 3rd Ave, Suite 3400<br />
-                  Seattle, WA 98101<br />
-                  United States
-                </p>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 text-text-secondary">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+                  <Phone size={18} className="text-accent-green" />
+                </div>
+                <span className="font-medium">15-minute discovery call</span>
               </div>
-              <div>
-                <h4 className="font-bold text-text-primary mb-2">Direct Contact</h4>
-                <p className="text-text-secondary leading-relaxed font-mono">
+              <div className="flex items-center gap-3 text-text-secondary">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+                  <Mail size={18} className="text-accent-green" />
+                </div>
+                <a href="mailto:hello@faan.ai" className="font-medium hover:text-accent-green transition-colors">
                   hello@faan.ai
-                </p>
+                </a>
               </div>
             </div>
           </motion.div>
 
           {/* Right: Form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-[#0d1117] border border-border-default rounded-2xl p-8 shadow-2xl relative"
           >
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(88,166,255,0.05)_0%,transparent_70%)] rounded-2xl"></div>
+            <form
+              onSubmit={handleSubmit}
+              className="bg-white rounded-2xl p-8 shadow-sm border border-border-muted"
+            >
+              <h3 className="text-xl font-bold text-text-primary mb-6">Tell us about your business</h3>
 
-            <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
-              <h3 className="text-2xl font-bold text-text-primary mb-6">Send an Inquiry</h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input
-                  label="First name"
-                  name="firstName"
-                  placeholder="Jane"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  error={errors.firstName}
-                />
-                <Input
-                  label="Last name"
-                  name="lastName"
-                  placeholder="Doe"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  error={errors.lastName}
-                />
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-primary mb-1.5">First name</label>
+                  <input
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 rounded-xl border ${errors.firstName ? 'border-red-400' : 'border-border-default'} bg-bg-primary text-text-primary placeholder:text-text-placeholder focus:outline-none focus:border-accent-green focus:ring-1 focus:ring-accent-green/30 transition-all`}
+                    placeholder="Jane"
+                  />
+                  {errors.firstName && <p className="mt-1 text-xs text-red-500">{errors.firstName}</p>}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-text-primary mb-1.5">Last name</label>
+                  <input
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-3 rounded-xl border ${errors.lastName ? 'border-red-400' : 'border-border-default'} bg-bg-primary text-text-primary placeholder:text-text-placeholder focus:outline-none focus:border-accent-green focus:ring-1 focus:ring-accent-green/30 transition-all`}
+                    placeholder="Doe"
+                  />
+                  {errors.lastName && <p className="mt-1 text-xs text-red-500">{errors.lastName}</p>}
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input
-                  label="Work Email"
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-text-primary mb-1.5">Email</label>
+                <input
                   name="email"
                   type="email"
-                  placeholder="jane@company.com"
                   value={formData.email}
                   onChange={handleChange}
-                  error={errors.email}
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.email ? 'border-red-400' : 'border-border-default'} bg-bg-primary text-text-primary placeholder:text-text-placeholder focus:outline-none focus:border-accent-green focus:ring-1 focus:ring-accent-green/30 transition-all`}
+                  placeholder="jane@company.com"
                 />
-                <Input
-                  label="Company"
+                {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email}</p>}
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-text-primary mb-1.5">Company (optional)</label>
+                <input
                   name="company"
-                  placeholder="Acme Corp"
                   value={formData.company}
                   onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl border border-border-default bg-bg-primary text-text-primary placeholder:text-text-placeholder focus:outline-none focus:border-accent-green focus:ring-1 focus:ring-accent-green/30 transition-all"
+                  placeholder="Acme Corp"
                 />
               </div>
 
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-text-primary">What can we help you with?</label>
-                <select
-                  name="inquiryType"
-                  value={formData.inquiryType}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-text-primary mb-1.5">What does your business do?</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
                   onChange={handleChange}
-                  className="w-full bg-bg-primary text-text-primary border border-border-default rounded-lg px-4 py-3 focus:outline-none focus:border-accent-blue focus:ring-1 focus:ring-accent-blue/50 transition-colors"
-                >
-                  <option value="general">General Inquiry</option>
-                  <option value="cloud">Cloud Architecture & Migration</option>
-                  <option value="data">Data Engineering & Analytics</option>
-                  <option value="ai">Generative AI & Machine Learning</option>
-                  <option value="training">Training & Enablement</option>
-                  <option value="careers">Careers</option>
-                </select>
+                  rows={4}
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.message ? 'border-red-400' : 'border-border-default'} bg-bg-primary text-text-primary placeholder:text-text-placeholder focus:outline-none focus:border-accent-green focus:ring-1 focus:ring-accent-green/30 transition-all resize-y`}
+                  placeholder="Tell us about your business and what tasks eat your time..."
+                />
+                {errors.message && <p className="mt-1 text-xs text-red-500">{errors.message}</p>}
               </div>
 
-              <Textarea
-                label="Project Details"
-                name="message"
-                placeholder="Tell us about the challenges you're facing or the goals you're trying to achieve."
-                className="min-h-[120px]"
-                value={formData.message}
-                onChange={handleChange}
-                error={errors.message}
-              />
-
-              <Button
+              <button
                 type="submit"
-                variant="primary"
-                className="w-full py-4 text-base"
                 disabled={isSubmitting}
+                className="w-full py-4 bg-accent-green hover:bg-accent-greenHover text-white font-bold rounded-xl green-glow transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'Sending Security Handshake...' : 'Submit Inquiry'}
-              </Button>
-
-              <p className="text-xs text-text-muted text-center mt-4">
-                By submitting this form, you agree to our <a href="#" className="text-accent-blue hover:underline">Privacy Policy</a> and <a href="#" className="text-accent-blue hover:underline">Terms of Service</a>.
-              </p>
+                {isSubmitting ? 'Sending...' : 'Book My Free Call'}
+              </button>
             </form>
           </motion.div>
-
         </div>
       </section>
 
-      {/* 2. FAQ Section */}
-      <section className="bg-bg-secondary py-24 border-t border-border-default">
-        <div className="max-w-[800px] mx-auto px-6">
+      <section className="py-16 px-4 bg-bg-sage">
+        <div className="max-w-3xl mx-auto text-center">
           <FadeInWhenVisible>
-            <h2 className="text-3xl font-bold text-text-primary mb-12 text-center">Frequently Asked Questions</h2>
-          </FadeInWhenVisible>
-          <FadeInWhenVisible delay={0.1}>
-            <div className="space-y-6">
-              <div className="bg-bg-primary border border-border-default rounded-lg p-6">
-                <h4 className="text-lg font-bold text-text-primary mb-2">Do you take on projects outside of Google Cloud?</h4>
-                <p className="text-text-secondary">Our deepest expertise is within the Google Cloud ecosystem, but we regularly architect multi-cloud solutions utilizing AWS or Azure when a client maintains a hybrid footprint.</p>
-              </div>
-              <div className="bg-bg-primary border border-border-default rounded-lg p-6">
-                <h4 className="text-lg font-bold text-text-primary mb-2">What is your typical engagement model?</h4>
-                <p className="text-text-secondary">We operate on two primary models: specialized Time & Materials (T&M) team augmentation, and fixed-scope deliverables for discrete projects like database migrations or RAG deployments.</p>
-              </div>
-              <div className="bg-bg-primary border border-border-default rounded-lg p-6">
-                <h4 className="text-lg font-bold text-text-primary mb-2">How quickly can you spin up a team?</h4>
-                <p className="text-text-secondary">For established enterprise clients with MSAs in place, we can typically deploy a specialized pod of architects and engineers within 2-3 weeks.</p>
-              </div>
-            </div>
+            <p className="text-lg text-text-secondary">
+              <span className="font-bold text-text-primary">Response time:</span> We typically respond within 4 hours during business hours.
+              For urgent requests, email us directly at{' '}
+              <a href="mailto:hello@faan.ai" className="text-accent-green font-semibold hover:underline">
+                hello@faan.ai
+              </a>
+            </p>
           </FadeInWhenVisible>
         </div>
       </section>
-
     </div>
   );
 };
